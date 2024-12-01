@@ -1,36 +1,85 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Secure Whistleblower Platform
 
-## Getting Started
+A secure and encrypted platform for government whistleblowers to anonymously report corruption and incompetence.
 
-First, run the development server:
+## Security Features
+
+- End-to-end encryption of all reports
+- No session persistence
+- Anonymous reporting system
+- Secure headers implementation
+- No tracking or logging of user information
+
+## Prerequisites
+
+- Node.js 18+ 
+- npm
+- Supabase account
+
+## Setup
+
+1. Clone the repository
+
+```bash
+git clone [repository-url]
+cd whistleblowers
+```
+
+2. Install dependencies
+
+```bash
+npm install
+```
+
+3. Create a Supabase project and set up the database
+- Create a new project at https://supabase.com
+- Create a new table called 'reports' with the following schema:
+  ```sql
+  create table reports (
+    id text primary key,
+    encrypted_content text not null,
+    created_at timestamp with time zone default timezone('utc'::text, now()) not null
+  );
+  ```
+
+4. Configure environment variables
+- Copy `.env.local` to your project root
+- Update the following variables:
+  ```
+  NEXT_PUBLIC_SUPABASE_URL=your-project-url
+  NEXT_PUBLIC_SUPABASE_ANON_KEY=your-anon-key
+  SUPABASE_SERVICE_ROLE_KEY=your-service-role-key
+  ENCRYPTION_KEY=your-32-byte-encryption-key
+  ```
+
+5. Run the development server
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Security Considerations
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+- Always use HTTPS in production
+- Regularly rotate encryption keys
+- Monitor for suspicious activities
+- Keep all dependencies updated
+- Use secure headers and CSP
+- Implement rate limiting in production
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Production Deployment
 
-## Learn More
+1. Set up proper SSL/TLS certificates
+2. Configure secure headers
+3. Set up rate limiting
+4. Enable database encryption
+5. Configure proper backup systems
+6. Set up monitoring and alerting
 
-To learn more about Next.js, take a look at the following resources:
+## License
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+MIT
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Security Reporting
 
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+If you discover any security-related issues, please email [security contact] instead of using the public issue tracker.
